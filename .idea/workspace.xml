@@ -5,10 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cd4776e3-3ad5-4847-b678-887534a58749" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/appContacts/src/main/resources/hibernate.cfg.xml" beforeDir="false" afterPath="$PROJECT_DIR$/appContacts/src/main/resources/hibernate.cfg.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/appContacts/src/main/java/org/example/Controller/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/appContacts/src/main/java/org/example/Controller/Controller.java" afterDir="false" />
     </list>
-    <list id="0593bbaa-f797-41ef-9eeb-c29b0b4d5a38" name="Changes by sergi" comment="" />
+    <list id="0593bbaa-f797-41ef-9eeb-c29b0b4d5a38" name="Changes by sergi" comment="">
+      <change beforePath="$PROJECT_DIR$/appContacts/src/main/java/org/example/Controller/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/appContacts/src/main/java/org/example/Controller/Controller.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -37,6 +39,15 @@
         <option name="url" value="https://github.com/r-godet/Acces-a-Dades.git" />
       </UrlAndAccount>
     </option>
+  </component>
+  <component name="LineStatusTrackerManager">
+    <file path="$PROJECT_DIR$/appContacts/src/main/java/org/example/Controller/Controller.java">
+      <ranges>
+        <range start1="4" end1="4" start2="4" end2="5" changelist="cd4776e3-3ad5-4847-b678-887534a58749" />
+        <range start1="6" end1="7" start2="7" end2="26" changelist="0593bbaa-f797-41ef-9eeb-c29b0b4d5a38" />
+        <range start1="9" end1="14" start2="28" end2="50" changelist="cd4776e3-3ad5-4847-b678-887534a58749" />
+      </ranges>
+    </file>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
