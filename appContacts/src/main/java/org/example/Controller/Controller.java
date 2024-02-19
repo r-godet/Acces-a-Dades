@@ -2,28 +2,45 @@ package org.example.Controller;
 import org.example.Entities.User;
 import java.util.ArrayList;
 import java.util.Scanner;
-import org.example.Controller.Controller;
+import java.util.concurrent.TimeUnit;
+
 public class Controller {
 
    static ArrayList<User> users = new ArrayList<>();
    static Scanner scan = new Scanner(System.in);
-
-    public static void Controller() {
-        System.out.println("Nombre: ");
-        String nombre = scan.nextLine();
-
-        System.out.println("Apellido: ");
-        String apellido = scan.nextLine();
-
-        System.out.println("Telefono: ");
-        String telefono = scan.nextLine();
-
-        System.out.println("Añadir una foto");
-        String foto = scan.nextLine();
-
-        Controller contacto = new contacto(nombre, apellido, telefono, foto);
-        controller.add(contacto);
+    public static void verContacto()
+    {
+        System.out.println("Lista de Contactos: ");
+        for(int i = 0; i <= users.toArray().length; i++){
+            System.out.println(users.toString());
+        }
     }
+
+    public static void agregarContacto(){
+            System.out.print("Ingrese el nombre del contacto: ");
+            String nombre = scan.nextLine();
+
+            System.out.print("Ingrese el apellido del contacto: ");
+            String apellido = scan.nextLine();
+
+            System.out.print("Ingrese el número de teléfono: ");
+            String telefono = scan.nextLine();
+
+            System.out.print("Quieres añadir una foto: ");
+            String foto = scan.nextLine();
+
+            User contacto = new User(nombre, apellido, telefono, foto);
+            users.add(contacto);
+
+            System.out.println("Contacto de "+nombre+" agregado\n");
+            System.out.println("Volveras al menu en breves!");
+            try {
+                TimeUnit.SECONDS.sleep(3);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+    }
+
     public static void main(String[] args)
     {
         while (true) {
@@ -34,15 +51,15 @@ public class Controller {
             int options = scan.nextInt();
             scan.nextLine();
 
-            switch (opcions) {
+            switch (options) {
                 case 1:
                     agregarContacto();
                     break;
                 case 2:
-                    verContactos();
+                    verContacto();
                     break;
                 case 3:
-                    System.out.println("Gracias por usar la aplicación. ");
+                    System.out.println("Cerrar programa");
                     return;
                 default:
                     System.out.println("Opción inválida. Vuleve a intertarlo.");
