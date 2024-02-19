@@ -1,21 +1,34 @@
 package org.example.Entities;
+import jakarta.persistence.*;
+
 import java.sql.SQLOutput;
 import java.util.Scanner;
+@Entity
+@Table(name = "Users")
+
 public class User {
-    static Scanner lector = new Scanner(System.in);
-    static String nombre;
-    static String apellido;
-    static String numero;
-    static String foto;
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-    public static void main(String[] args){
+        int id;
+        @Column(length = 20, unique = true)
+        String nombre;
+        @Column(length = 20)
+        String apellido;
+        @Column(length = 9)
+        String telefono;
 
+    public User() {
     }
 
-    public User(String nombre, String apellido, String numero, String foto){
+    @Override
+    public String toString() {
+        return "Nombre: "+ nombre+ "\nApellido: "+ apellido+ "\nTelefono: "+ telefono+"\n";
+    }
+
+    public User(String nombre, String apellido, String telefono){
         this.nombre = nombre;
         this.apellido = apellido;
-        this.numero = numero;
-        this.foto = foto;
+        this.telefono = telefono;
     }
 }
