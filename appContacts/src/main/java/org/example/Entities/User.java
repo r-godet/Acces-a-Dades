@@ -15,8 +15,12 @@ public class User {
         String nombre;
         @Column(length = 20)
         String apellido;
+        @Column(length = 100)
+        String contrasenya;
         @Column(length = 9)
         String telefono;
+
+
 
     public User() {
     }
@@ -26,9 +30,10 @@ public class User {
         return "Nombre: "+ nombre+ "\nApellido: "+ apellido+ "\nTelefono: "+ telefono+"\n";
     }
 
-    public User(String nombre, String apellido, String telefono){
+    public User(String nombre, String apellido, String telefono, String constrasenya){
         this.nombre = nombre;
         this.apellido = apellido;
         this.telefono = telefono;
+        this.contrasenya = constrasenya;
     }
 }

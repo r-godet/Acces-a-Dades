@@ -28,32 +28,32 @@ public class Controller {
         while (true) {
             System.out.println();
             System.out.print("CONTACTOS\n------------\n");
-            System.out.println("Iniciar Sesion o Registrate (I/R): ");
+            System.out.print("Iniciar Sesion o Registrate (I/R): ");
             String respuesta = scan.nextLine();
             if(respuesta.equals("I")){
-                System.out.println("Introduce tu usuario");
-                System.out.println("Introduce tu contraseña");
+                System.out.print("Introduce tu usuario: ");
+                System.out.print("Introduce tu contraseña: ");
             }
             else if(respuesta.equals("R")){
-                System.out.println("Introduce tu usuario");
+                System.out.print("Introduce tu usuario: ");
                 String nombre1 = scan.nextLine();
                 session.beginTransaction();
                 Query<User> queryUsers = session.createQuery("SELECT nombre FROM User", User.class);
                 session.getTransaction().commit();
-                if(!nombre1.equals(queryUsers)){
-                    while(!name){
+                /*while(!name){
+                     if(!nombre1.equals(queryUsers)){
                         System.out.println("Este nombre ya esta en uso, elija otro.");
+                    }else
+                    {
+                        name = true;
                     }
-                }else
-                {
-                    name = true;
-                }
-                System.out.println("Introduce tu contraseña");
+                }*/
+                System.out.print("Introduce tu contraseña: ");
                 String contra1 = scan.nextLine();
-                System.out.println("Confirma tu contraseña");
+                System.out.print("Confirma tu contraseña: ");
                 String contra2 = scan.nextLine();
                 if(contra1==contra2){
-                    System.out.println("Contraseña valida");
+                    System.out.print("Contraseña valida");
                 }
             }
             System.out.println("1. Agregar Contacto");
