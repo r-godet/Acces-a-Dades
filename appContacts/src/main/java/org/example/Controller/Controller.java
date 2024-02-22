@@ -112,7 +112,7 @@ public class Controller {
         session.beginTransaction();
         User contacto = new User(nombre, apellido, telefono);
         session.save(contacto);
-        session.getTransaction().commit();
+       session.getTransaction().commit();
 
         System.out.println("Contacto de "+nombre+" agregado\n");
         System.out.print("Volveras al menu en breves!\n");
