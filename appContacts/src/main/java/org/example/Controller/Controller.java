@@ -40,14 +40,17 @@ public class Controller {
                 session.beginTransaction();
                 Query<User> queryUsers = session.createQuery("SELECT nombre FROM User", User.class);
                 session.getTransaction().commit();
-                /*while(!name){
+                
+               /*while(!name){
                      if(!nombre1.equals(queryUsers)){
-                        System.out.println("Este nombre ya esta en uso, elija otro.");
+                        System.out.println("Este nombre ya esta en uso, porfavor introduzca otro.");
+                        return;
                     }else
                     {
-                        name = true;
+                        name = true; //El nombre de usuario esta disponible y se le aplica
                     }
                 }*/
+               
                 System.out.print("Introduce tu contraseña: ");
                 String contra1 = scan.nextLine();
                 System.out.print("Confirma tu contraseña: ");
