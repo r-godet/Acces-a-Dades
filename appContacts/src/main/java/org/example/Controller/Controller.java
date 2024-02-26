@@ -11,6 +11,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
+import org.example.Entities.Owner;
 
 public class Controller {
 
@@ -112,6 +113,8 @@ public class Controller {
         System.out.print("Ingrese el número de teléfono: ");
         String telefono = scan.nextLine();
 
+        System.out.println();
+
         session.beginTransaction();
         User contacto = new User(nombre, apellido, telefono);
         session.save(contacto);
@@ -122,6 +125,27 @@ public class Controller {
         try {
             TimeUnit.SECONDS.sleep(2);
         } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public static void agregarOwner(Session session)
+    {
+        System.out.print("Ingrese el nombre del usuario: ");
+        String usuario = scan.nextLine();
+
+        System.out.println("Ingrese la contrasenya: ");
+        String contrasenya = scan.nextLine();
+
+        session.beginTransaction();
+        Owner owner = new Owner(usuario, contrasenya);
+        session.save(owner);
+        session.getTransaction().commit();
+
+        System.out.println("Usuario Creado");
+        System.out.println("En breves volveras al menu de inicio");
+        try{
+            TimeUnit.SECONDS.sleep(2);
+        }catch (InterruptedException e){
             throw new RuntimeException(e);
         }
     }
