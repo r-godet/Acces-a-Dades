@@ -11,15 +11,10 @@ public class Owner {
         int id;
         @Column(length = 20, unique = true)
         String usuario;
-        @Column(length = 100)
+        @Column(length = 20)
         String contrasenya;
 
     public Owner() {
-    }
-
-    @Override
-    public String toString() {
-        return "Nombre usuario: "+ usuario;
     }
 
     public Owner(String usuario, String constrasenya){

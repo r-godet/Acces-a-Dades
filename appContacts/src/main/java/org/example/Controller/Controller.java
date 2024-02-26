@@ -12,20 +12,21 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 import org.example.Entities.Owner;
+import org.example.View.View;
 
 public class Controller {
-
-
    static ArrayList<User> users = new ArrayList<>();
    static Scanner scan = new Scanner(System.in);
-
     public static void main(String[] args) {
+
 
         boolean name = false;
         final StandardServiceRegistry registro = new StandardServiceRegistryBuilder().configure().build();
         final SessionFactory sessionFactory = new MetadataSources(registro).buildMetadata().buildSessionFactory();
         final Session session = sessionFactory.openSession();
 
+        View view = new View();
+        view.crearYMostrarGUI();
         while (true) {
             System.out.println();
             System.out.print("CONTACTOS\n------------\n");
@@ -39,25 +40,15 @@ public class Controller {
                 System.out.print("Introduce tu usuario: ");
                 String nombre1 = scan.nextLine();
                 session.beginTransaction();
-                Query<User> queryUsers = session.createQuery("SELECT nombre FROM User", User.class);
+                Query<Owner> queryUsers = session.createQuery("SELECT nombre FROM Owner", Owner.class);
                 session.getTransaction().commit();
-                
-               /*while(!name){
-                     if(!nombre1.equals(queryUsers)){
-                        System.out.println("Este nombre ya esta en uso, porfavor introduzca otro.");
-                        return;
-                    }else
-                    {
-                        name = true; //El nombre de usuario esta disponible y se le aplica
-                    }
-                }*/
-               
                 System.out.print("Introduce tu contraseña: ");
                 String contra1 = scan.nextLine();
                 System.out.print("Confirma tu contraseña: ");
                 String contra2 = scan.nextLine();
                 if(contra1==contra2){
                     System.out.print("Contraseña valida");
+                    agregarOwner(session);
                 }
             }
             System.out.println("1. Agregar Contacto");
