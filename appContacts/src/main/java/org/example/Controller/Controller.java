@@ -18,8 +18,6 @@ public class Controller {
    static ArrayList<User> users = new ArrayList<>();
    static Scanner scan = new Scanner(System.in);
     public static void main(String[] args) {
-
-
         boolean name = false;
         final StandardServiceRegistry registro = new StandardServiceRegistryBuilder().configure().build();
         final SessionFactory sessionFactory = new MetadataSources(registro).buildMetadata().buildSessionFactory();
