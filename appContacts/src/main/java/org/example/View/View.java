@@ -88,7 +88,7 @@ public class View {
     }
 
     public void crearYMostrarGUI() {
-        frame = new JFrame("Juego de la Vida");
+        frame = new JFrame("Contactos");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
 
@@ -137,6 +137,7 @@ public class View {
         frame.setVisible(true);
     }
 
+    private void
     private void solicitarDimensiones() {
         JOptionPane.showMessageDialog(frame,"------GESTOR DE CONTACTOS------\n"+
                 "\n" +
