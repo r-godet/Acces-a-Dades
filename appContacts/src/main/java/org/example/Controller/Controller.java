@@ -54,10 +54,10 @@ public class Controller {
 
                     switch (options) {
                         case 1:
-                            agregarContacto(session, currentOwner);
+                            agregarContacto(session, owner);
                             break;
                         case 2:
-                            verContacto(session);
+                            verContacto(session, owner);
                             break;
                         case 3:
                             System.out.println("Cerrar programa");
@@ -76,7 +76,7 @@ public class Controller {
     }
     public static void verContacto(Session session, Owner currentOwner) {
         // Asume que Owner tiene un campo 'id' que se usa para filtrar los contactos
-        Long ownerId = currentOwner.getId();
+        int ownerId = currentOwner.getId();
 
         // Inicia una transacción para la operación de lectura (opcional dependiendo de tu configuración)
         session.beginTransaction();

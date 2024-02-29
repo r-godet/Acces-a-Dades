@@ -42,4 +42,12 @@ public class Owner {
     public void setUsuario(String usuario) {
         this.usuario = usuario;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }
