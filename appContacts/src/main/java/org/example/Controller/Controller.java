@@ -30,7 +30,7 @@ public class Controller {
             System.out.print("Iniciar Sesion o Registrate (I/R): ");
             String respuesta = scan.nextLine();
             if(respuesta.equals("I")){
-                System.out.print("Introduce tu usuario: ");
+                System.out.print("\nIntroduce tu usuario: ");
                 String usuario = scan.nextLine();
 
                 System.out.print("Introduce tu contraseña: ");
@@ -47,10 +47,12 @@ public class Controller {
                 if(owner != null && owner.getPassword().equals(contrasenya)) {
                     boolean inSesion = true;
                     while(inSesion){
-                        System.out.println("Autenticación exitosa.");
+                        System.out.println();
+                        System.out.println("Inicio de session correcto.");
                         System.out.println("1. Agregar Contacto");
                         System.out.println("2. Ver lista de contactos");
                         System.out.println("3. Cerrar Contactos");
+                        System.out.print("Que opcion quieres elegir? ");
                         int options = scan.nextInt();
                         scan.nextLine();
 
@@ -66,11 +68,11 @@ public class Controller {
                                 inSesion = false;
                                 return;
                             default:
-                                System.out.println("Opción inválida. Vuleve a intertarlo.");
+                                System.out.println("\nOpción inválida. Vuleve a intertarlo.");
                         }
                     }
                 } else {
-                    System.out.println("Nombre de usuario o contraseña incorrecta.");
+                    System.out.println("\nNombre de usuario o contraseña incorrecta.\n");
                 }
             }
             else if(respuesta.equals("R")){
@@ -80,7 +82,7 @@ public class Controller {
     }
 
     public static void agregarContacto(Session session, Owner currentOwner) {
-            System.out.print("Ingrese el nombre del contacto: ");
+            System.out.print("\nIngrese el nombre del contacto: ");
             String nombre = scan.nextLine();
 
             System.out.print("Ingrese el apellido del contacto: ");
@@ -101,11 +103,11 @@ public class Controller {
 
             session.getTransaction().commit();
 
-            System.out.println("Contacto agregado exitosamente.");
+            System.out.println("\nContacto agregado exitosamente.");
     }
     public static void agregarOwner(Session session)
     {
-        System.out.print("Introduce tu usuario: ");
+        System.out.print("\nIntroduce tu usuario: ");
         String nombre1 = scan.nextLine();
         session.beginTransaction();
         Query<Owner> queryUsers = session.createQuery("SELECT usuario FROM Owner", Owner.class);
@@ -126,7 +128,16 @@ public class Controller {
 
             String currentOwner = nombre1;
 
-            System.out.println("Usuario Creado");
+            System.out.println("\nUsuario Creado");
+            System.out.println("En breves volveras al menu de inicio\n");
+            try{
+                TimeUnit.SECONDS.sleep(2);
+            }catch (InterruptedException e){
+                throw new RuntimeException(e);
+            }
+        }
+        else{
+            System.out.println("\nContraseña invalida");
             System.out.println("En breves volveras al menu de inicio");
             try{
                 TimeUnit.SECONDS.sleep(2);
@@ -146,17 +157,17 @@ public class Controller {
         session.getTransaction().commit();
 
         if (contactos.isEmpty()) {
-            System.out.println("No hay contactos para mostrar.");
+            System.out.println("\nNo hay contactos para mostrar.");
             return;
         }
 
-        System.out.println("Contactos:");
+        System.out.println("\nContactos:");
         for (int i = 0; i < contactos.size(); i++) {
             User contacto = contactos.get(i);
             System.out.println((i + 1) + ". " + contacto.getNombre() + " " + contacto.getApellido() + " | Teléfono: " + contacto.getTelefono());
         }
 
-        System.out.print("¿Desea editar o eliminar algún contacto? (presiona E para editar, presiona D para eliminar, presiona cualquier otra tecla para salir): ");
+        System.out.print("\n¿Desea editar o eliminar algún contacto? (presiona E para editar, presiona D para eliminar o presiona M para volver al menu): ");
         String respuesta = scan.nextLine();
 
         if (respuesta.equalsIgnoreCase("E")) {
@@ -167,33 +178,65 @@ public class Controller {
     }
 
     public static void editarContacto(Session session, List<User> contactos) {
-        System.out.print("Ingrese el número del contacto que desea editar: ");
+        System.out.print("\nIngrese el número del contacto que desea editar: ");
         int index = scan.nextInt();
         scan.nextLine(); // Consume newline character
 
         if (index >= 1 && index <= contactos.size()) {
             User contacto = contactos.get(index - 1);
 
-            System.out.println("Editar contacto: " + contacto.getNombre() + " " + contacto.getApellido());
-            System.out.print("Ingrese el nuevo nombre: ");
-            String nuevoNombre = scan.nextLine();
-            contacto.setNombre(nuevoNombre);
+            System.out.println("\nEditar contacto: " + contacto.getNombre() + " " + contacto.getApellido());
 
-            System.out.print("Ingrese el nuevo apellido: ");
-            String nuevoApellido = scan.nextLine();
-            contacto.setApellido(nuevoApellido);
+            System.out.println("¿Qué parte del contacto desea editar?");
+            System.out.println("1. Nombre");
+            System.out.println("2. Apellido");
+            System.out.println("3. Teléfono");
+            System.out.println("4. Editar todo");
+            System.out.print("Que opcion quieres elegir? ");
+            int opcion = scan.nextInt();
+            scan.nextLine(); // Consume newline character
 
-            System.out.print("Ingrese el nuevo número de teléfono: ");
-            String nuevoTelefono = scan.nextLine();
-            contacto.setTelefono(nuevoTelefono);
+            switch (opcion) {
+                case 1:
+                    System.out.print("\nIngrese el nuevo nombre: ");
+                    String nuevoNombre = scan.nextLine();
+                    contacto.setNombre(nuevoNombre);
+                    break;
+                case 2:
+                    System.out.print("\nIngrese el nuevo apellido: ");
+                    String nuevoApellido = scan.nextLine();
+                    contacto.setApellido(nuevoApellido);
+                    break;
+                case 3:
+                    System.out.print("\nIngrese el nuevo número de teléfono: ");
+                    String nuevoTelefono = scan.nextLine();
+                    contacto.setTelefono(nuevoTelefono);
+                    break;
+                case 4:
+                    System.out.print("\nIngrese el nuevo nombre: ");
+                    nuevoNombre = scan.nextLine();
+                    contacto.setNombre(nuevoNombre);
+
+                    System.out.print("Ingrese el nuevo apellido: ");
+                    nuevoApellido = scan.nextLine();
+                    contacto.setApellido(nuevoApellido);
+
+                    System.out.print("Ingrese el nuevo número de teléfono: ");
+                    nuevoTelefono = scan.nextLine();
+                    contacto.setTelefono(nuevoTelefono);
+                    break;
+                default:
+                    System.out.println("\nOpción inválida.\n");
+                    return;
+            }
 
             session.beginTransaction();
             session.update(contacto);
             session.getTransaction().commit();
 
-            System.out.println("Contacto actualizado exitosamente.");
+            System.out.println("\nContacto actualizado exitosamente.");
         } else {
-            System.out.println("Número de contacto inválido.");
+            System.out.println("\nNúmero de contacto inválido.");
         }
     }
 
@@ -209,9 +252,9 @@ public class Controller {
             session.delete(contacto);
             session.getTransaction().commit();
 
-            System.out.println("Contacto eliminado exitosamente.");
+            System.out.println("\nContacto eliminado exitosamente.");
         } else {
-            System.out.println("Número de contacto inválido.");
+            System.out.println("\nNúmero de contacto inválido.");
         }
     }
 
