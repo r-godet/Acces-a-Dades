@@ -15,6 +15,7 @@ import org.example.Entities.Owner;
 import org.example.View.View;
 
 public class Controller {
+    public static boolean contraGood = false;
    static ArrayList<User> users = new ArrayList<>();
    static Scanner scan = new Scanner(System.in);
     public static void main(String[] args) {
@@ -22,9 +23,6 @@ public class Controller {
         final StandardServiceRegistry registro = new StandardServiceRegistryBuilder().configure().build();
         final SessionFactory sessionFactory = new MetadataSources(registro).buildMetadata().buildSessionFactory();
         final Session session = sessionFactory.openSession();
-
-        View view = new View();
-        view.crearYMostrarGUI();
         while (true) {
             System.out.println();
             System.out.print("CONTACTOS\n------------\n");
@@ -32,41 +30,46 @@ public class Controller {
             String respuesta = scan.nextLine();
             if(respuesta.equals("I")){
                 System.out.print("Introduce tu usuario: ");
+                String usuario = scan.nextLine();
+
                 System.out.print("Introduce tu contraseña: ");
-            }
-            else if(respuesta.equals("R")){
-                System.out.print("Introduce tu usuario: ");
-                String nombre1 = scan.nextLine();
+                String contrasenya = scan.nextLine();
+
                 session.beginTransaction();
-                Query<Owner> queryUsers = session.createQuery("SELECT nombre FROM Owner", Owner.class);
+
+                Query<Owner> query = session.createQuery("FROM Owner WHERE usuario = :username", Owner.class);
+                query.setParameter("username", usuario);
+                Owner owner = query.uniqueResult();
+
                 session.getTransaction().commit();
-                System.out.print("Introduce tu contraseña: ");
-                String contra1 = scan.nextLine();
-                System.out.print("Confirma tu contraseña: ");
-                String contra2 = scan.nextLine();
-                if(contra1==contra2){
-                    System.out.print("Contraseña valida");
-                    agregarOwner(session);
+
+                if(owner != null && owner.getPassword().equals(contrasenya)) {
+                    System.out.println("Autenticación exitosa.");
+                    System.out.println("1. Agregar Contacto");
+                    System.out.println("2. Ver lista de contactos");
+                    System.out.println("3. Cerrar sesion");
+                    int options = scan.nextInt();
+                    scan.nextLine();
+
+                    switch (options) {
+                        case 1:
+                            agregarContacto(session);
+                            break;
+                        case 2:
+                            verContacto(session);
+                            break;
+                        case 3:
+                            System.out.println("Cerrar programa");
+                            return;
+                        default:
+                            System.out.println("Opción inválida. Vuleve a intertarlo.");
+                    }
+                } else {
+                    System.out.println("Nombre de usuario o contraseña incorrecta.");
                 }
             }
-            System.out.println("1. Agregar Contacto");
-            System.out.println("2. Ver lista de contactos");
-            System.out.println("3. Cerrar sesion");
-            int options = scan.nextInt();
-            scan.nextLine();
-
-            switch (options) {
-                case 1:
-                    agregarContacto(session);
-                    break;
-                case 2:
-                    verContacto(session);
-                    break;
-                case 3:
-                    System.out.println("Cerrar programa");
-                    return;
-                default:
-                    System.out.println("Opción inválida. Vuleve a intertarlo.");
+            else if(respuesta.equals("R")){
+                agregarOwner(session);
             }
         }
     }
@@ -88,6 +91,12 @@ public class Controller {
         }
         else if(editar.equals("S")){
             System.out.print("Que contacto quieres editar? (introduce el nombre): ");
+            String name = scan.nextLine();
+            Query<User> queryUsersEdit = session.createQuery("FROM User", User.class);
+            List<User> usersEdit = queryUsers.getResultList();
+            if(usersEdit.equals(name)){
+
+            }
         }
 
     }
@@ -119,23 +128,33 @@ public class Controller {
     }
     public static void agregarOwner(Session session)
     {
-        System.out.print("Ingrese el nombre del usuario: ");
-        String usuario = scan.nextLine();
-
-        System.out.println("Ingrese la contrasenya: ");
-        String contrasenya = scan.nextLine();
-
+        System.out.print("Introduce tu usuario: ");
+        String nombre1 = scan.nextLine();
         session.beginTransaction();
-        Owner owner = new Owner(usuario, contrasenya);
-        session.save(owner);
+        Query<Owner> queryUsers = session.createQuery("SELECT usuario FROM Owner", Owner.class);
         session.getTransaction().commit();
 
-        System.out.println("Usuario Creado");
-        System.out.println("En breves volveras al menu de inicio");
-        try{
-            TimeUnit.SECONDS.sleep(2);
-        }catch (InterruptedException e){
-            throw new RuntimeException(e);
+        System.out.print("Introduce tu contraseña: ");
+        String contra1 = scan.nextLine();
+
+        System.out.print("Confirma tu contraseña: ");
+        String contra2 = scan.nextLine();
+
+        if(contra1.equals(contra2)){
+            System.out.print("Contraseña valida");
+            session.beginTransaction();
+            Owner owner = new Owner(nombre1, contra1);
+            session.save(owner);
+            session.getTransaction().commit();
+
+            System.out.println("Usuario Creado");
+            System.out.println("En breves volveras al menu de inicio");
+            try{
+                TimeUnit.SECONDS.sleep(2);
+            }catch (InterruptedException e){
+                throw new RuntimeException(e);
+            }
         }
+        return;
     }
 }

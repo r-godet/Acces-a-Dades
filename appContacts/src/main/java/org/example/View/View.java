@@ -82,11 +82,6 @@ public class View {
 
     private boolean[][] cuadricula;
     private Timer timer;
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new View().crearYMostrarGUI());
-    }
-
     public void crearYMostrarGUI() {
         frame = new JFrame("Contactos");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -136,8 +131,6 @@ public class View {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
-
-    private void
     private void solicitarDimensiones() {
         JOptionPane.showMessageDialog(frame,"------GESTOR DE CONTACTOS------\n"+
                 "\n" +
