@@ -187,7 +187,7 @@ public class Controller {
 
             System.out.println("\nEditar contacto: " + contacto.getNombre() + " " + contacto.getApellido());
 
-            System.out.println("¿Qué parte del contacto desea editar?");
+            System.out.println("\n¿Qué parte del contacto desea editar?");
             System.out.println("1. Nombre");
             System.out.println("2. Apellido");
             System.out.println("3. Teléfono");
