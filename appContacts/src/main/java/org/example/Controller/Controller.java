@@ -45,25 +45,29 @@ public class Controller {
                 session.getTransaction().commit();
 
                 if(owner != null && owner.getPassword().equals(contrasenya)) {
-                    System.out.println("Autenticación exitosa.");
-                    System.out.println("1. Agregar Contacto");
-                    System.out.println("2. Ver lista de contactos");
-                    System.out.println("3. Cerrar sesion");
-                    int options = scan.nextInt();
-                    scan.nextLine();
+                    boolean inSesion = true;
+                    while(inSesion){
+                        System.out.println("Autenticación exitosa.");
+                        System.out.println("1. Agregar Contacto");
+                        System.out.println("2. Ver lista de contactos");
+                        System.out.println("3. Cerrar Contactos");
+                        int options = scan.nextInt();
+                        scan.nextLine();
 
-                    switch (options) {
-                        case 1:
-                            agregarContacto(session, owner);
-                            break;
-                        case 2:
-                            verContacto(session, owner);
-                            break;
-                        case 3:
-                            System.out.println("Cerrar programa");
-                            return;
-                        default:
-                            System.out.println("Opción inválida. Vuleve a intertarlo.");
+                        switch (options) {
+                            case 1:
+                                agregarContacto(session, owner);
+                                break;
+                            case 2:
+                                verContacto(session, owner);
+                                break;
+                            case 3:
+                                System.out.println("Cerrar Contactos");
+                                inSesion = false;
+                                return;
+                            default:
+                                System.out.println("Opción inválida. Vuleve a intertarlo.");
+                        }
                     }
                 } else {
                     System.out.println("Nombre de usuario o contraseña incorrecta.");
