@@ -1,18 +1,18 @@
 package org.example.Controller;
+
+import org.example.Entities.Owner;
 import org.example.Entities.User;
-import org.hibernate.SessionFactory;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.query.Query;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
-import org.example.Entities.Owner;
-import org.example.View.View;
 
 public class Controller {
     public static boolean contraGood = false;
@@ -23,6 +23,7 @@ public class Controller {
         final StandardServiceRegistry registro = new StandardServiceRegistryBuilder().configure().build();
         final SessionFactory sessionFactory = new MetadataSources(registro).buildMetadata().buildSessionFactory();
         final Session session = sessionFactory.openSession();
+        String currentOwner;
         while (true) {
             System.out.println();
             System.out.print("CONTACTOS\n------------\n");
@@ -53,7 +54,7 @@ public class Controller {
 
                     switch (options) {
                         case 1:
-                            agregarContacto(session);
+                            agregarContacto(session, currentOwner);
                             break;
                         case 2:
                             verContacto(session);
@@ -73,58 +74,62 @@ public class Controller {
             }
         }
     }
-    public static void verContacto(Session session)
-    {
-        Query<User> queryUsers = session.createQuery("FROM User", User.class);
-        List<User> users = queryUsers.getResultList();
-        System.out.println(users);
+    public static void verContacto(Session session, Owner currentOwner) {
+        // Asume que Owner tiene un campo 'id' que se usa para filtrar los contactos
+        Long ownerId = currentOwner.getId();
 
-        System.out.println("Quieres editar un contacto? (S/N): ");
-        String editar = scan.nextLine();
-        if (editar.equals("N")){
-            System.out.print("Volveras al menu en breves!\n");
-            try {
-                TimeUnit.SECONDS.sleep(2);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        }
-        else if(editar.equals("S")){
-            System.out.print("Que contacto quieres editar? (introduce el nombre): ");
-            String name = scan.nextLine();
-            Query<User> queryUsersEdit = session.createQuery("FROM User", User.class);
-            List<User> usersEdit = queryUsers.getResultList();
-            if(usersEdit.equals(name)){
+        // Inicia una transacción para la operación de lectura (opcional dependiendo de tu configuración)
+        session.beginTransaction();
 
-            }
+        // Crea una consulta para obtener todos los contactos asociados con el Owner actual
+        List<User> contactos = session.createQuery("FROM User WHERE owner.id = :ownerId", User.class)
+                .setParameter("ownerId", ownerId)
+                .getResultList();
+
+        // Finaliza la transacción si es necesario (opcional)
+        session.getTransaction().commit();
+
+        // Verifica si hay contactos para mostrar
+        if (contactos.isEmpty()) {
+            System.out.println("No hay contactos para mostrar.");
+            return;
         }
 
+        // Muestra los contactos
+        System.out.println("Contactos:");
+        for (User contacto : contactos) {
+            System.out.println("- " + contacto.getNombre() + " " + contacto.getApellido() + " | Teléfono: " + contacto.getTelefono());
+        }
     }
 
-    public static void agregarContacto(Session session){
-        System.out.print("Ingrese el nombre del contacto: ");
-        String nombre = scan.nextLine();
 
-        System.out.print("Ingrese el apellido del contacto: ");
-        String apellido = scan.nextLine();
+    public static void agregarContacto(Session session, Owner currentOwner) {
+            System.out.print("Ingrese el nombre del contacto: ");
+            String nombre = scan.nextLine();
 
-        System.out.print("Ingrese el número de teléfono: ");
-        String telefono = scan.nextLine();
+            System.out.print("Ingrese el apellido del contacto: ");
+            String apellido = scan.nextLine();
 
-        System.out.println();
+            System.out.print("Ingrese el número de teléfono: ");
+            String telefono = scan.nextLine();
 
-        session.beginTransaction();
-        User contacto = new User(nombre, apellido, telefono);
-        session.save(contacto);
-       session.getTransaction().commit();
+            // Inicia una transacción con la base de datos
+            session.beginTransaction();
 
-        System.out.println("Contacto de "+nombre+" agregado\n");
-        System.out.print("Volveras al menu en breves!\n");
-        try {
-            TimeUnit.SECONDS.sleep(2);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+            // Crea un nuevo objeto User (contacto) con los datos ingresados
+            User nuevoContacto = new User();
+            nuevoContacto.setNombre(nombre);
+            nuevoContacto.setApellido(apellido);
+            nuevoContacto.setTelefono(telefono);
+            nuevoContacto.setOwner(currentOwner); // Asocia el contacto con el Owner actual
+
+            // Guarda el nuevo contacto en la base de datos
+            session.save(nuevoContacto);
+
+            // Compromete la transacción
+            session.getTransaction().commit();
+
+            System.out.println("Contacto agregado exitosamente.");
     }
     public static void agregarOwner(Session session)
     {
@@ -146,6 +151,8 @@ public class Controller {
             Owner owner = new Owner(nombre1, contra1);
             session.save(owner);
             session.getTransaction().commit();
+
+            String currentOwner = nombre1;
 
             System.out.println("Usuario Creado");
             System.out.println("En breves volveras al menu de inicio");

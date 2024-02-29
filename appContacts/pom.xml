@@ -39,6 +39,11 @@
       <artifactId>hibernate-validator</artifactId>
       <version>8.0.1.Final</version>
     </dependency>
+    <dependency>
+      <groupId>org.daiv.jpersistence</groupId>
+      <artifactId>jpersistence-jvm</artifactId>
+      <version>0.10.9</version>
+    </dependency>
 
 
   </dependencies>

@@ -1,5 +1,6 @@
 package org.example.Entities;
 import jakarta.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "Owner")
@@ -14,6 +15,9 @@ public class Owner {
         String usuario;
         @Column(length = 20)
         String contrasenya;
+
+    @OneToMany(mappedBy = "owner")
+    private Set<User> users;
 
     public Owner() {
     }
