@@ -14,12 +14,14 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
-/*ESTE ES EL MAIN*/
+
+        /*AQUI ESTA EL MAIN*/
 
 public class Controller {
     public static boolean contraGood = false;
    static ArrayList<User> users = new ArrayList<>();
    static Scanner scan = new Scanner(System.in);
+    
     public static void main(String[] args) {
         boolean name = false;
         final StandardServiceRegistry registro = new StandardServiceRegistryBuilder().configure().build();
