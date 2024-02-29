@@ -14,6 +14,8 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
+/*ESTE ES EL MAIN*/
+
 public class Controller {
     public static boolean contraGood = false;
    static ArrayList<User> users = new ArrayList<>();
