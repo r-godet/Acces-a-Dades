@@ -4,13 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cd4776e3-3ad5-4847-b678-887534a58749" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/appContacts/src/main/java/org/example/Controller/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/appContacts/src/main/java/org/example/Controller/Controller.java" afterDir="false" />
-    </list>
-    <list id="0593bbaa-f797-41ef-9eeb-c29b0b4d5a38" name="Changes by sergi" comment="">
-      <change beforePath="$PROJECT_DIR$/appContacts/src/main/java/org/example/Controller/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/appContacts/src/main/java/org/example/Controller/Controller.java" afterDir="false" />
-    </list>
+    <list default="true" id="cd4776e3-3ad5-4847-b678-887534a58749" name="Changes" comment="" />
+    <list id="0593bbaa-f797-41ef-9eeb-c29b0b4d5a38" name="Changes by sergi" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -40,20 +35,14 @@
       </UrlAndAccount>
     </option>
   </component>
-  <component name="LineStatusTrackerManager">
-    <file path="$PROJECT_DIR$/appContacts/src/main/java/org/example/Controller/Controller.java">
-      <ranges>
-        <range start1="4" end1="4" start2="4" end2="5" changelist="cd4776e3-3ad5-4847-b678-887534a58749" />
-        <range start1="6" end1="7" start2="7" end2="26" changelist="0593bbaa-f797-41ef-9eeb-c29b0b4d5a38" />
-        <range start1="9" end1="14" start2="28" end2="50" changelist="cd4776e3-3ad5-4847-b678-887534a58749" />
-      </ranges>
-    </file>
-  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="2" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 8
@@ -63,21 +52,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.Controller.executor&quot;: &quot;Run&quot;,
-    &quot;Application.User.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;R:/DAM1/Moduls/M06 - Acces a Dades/Acces-a-Dades/appContacts/src/main/java/org/example/Entities&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.projectsettings.compiler.javacompiler&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Controller.executor": "Run",
+    "Application.User.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/sergi/OneDrive/Documentos/GitHub/Acces-a-Dades/appContacts",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "reference.projectsettings.compiler.javacompiler"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="R:\DAM1\Moduls\M06 - Acces a Dades\Acces-a-Dades\appContacts\src\main\java\org\example\Entities" />

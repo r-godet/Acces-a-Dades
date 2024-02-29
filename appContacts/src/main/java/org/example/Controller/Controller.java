@@ -78,25 +78,6 @@ public class Controller {
             }
         }
     }
-    public static void verContacto(Session session, Owner currentOwner) {
-        int ownerId = currentOwner.getId();
-        session.beginTransaction();
-        List<User> contactos = session.createQuery("FROM User WHERE owner.id = :ownerId", User.class)
-                .setParameter("ownerId", ownerId)
-                .getResultList();
-        session.getTransaction().commit();
-
-        if (contactos.isEmpty()) {
-            System.out.println("No hay contactos para mostrar.");
-            return;
-        }
-
-        System.out.println("Contactos:");
-        for (User contacto : contactos) {
-            System.out.println("- " + contacto.getNombre() + " " + contacto.getApellido() + " | Teléfono: " + contacto.getTelefono());
-        }
-    }
-
 
     public static void agregarContacto(Session session, Owner currentOwner) {
             System.out.print("Ingrese el nombre del contacto: ");
@@ -155,4 +136,83 @@ public class Controller {
         }
         return;
     }
+
+    public static void verContacto(Session session, Owner currentOwner) {
+        int ownerId = currentOwner.getId();
+        session.beginTransaction();
+        List<User> contactos = session.createQuery("FROM User WHERE owner.id = :ownerId", User.class)
+                .setParameter("ownerId", ownerId)
+                .getResultList();
+        session.getTransaction().commit();
+
+        if (contactos.isEmpty()) {
+            System.out.println("No hay contactos para mostrar.");
+            return;
+        }
+
+        System.out.println("Contactos:");
+        for (int i = 0; i < contactos.size(); i++) {
+            User contacto = contactos.get(i);
+            System.out.println((i + 1) + ". " + contacto.getNombre() + " " + contacto.getApellido() + " | Teléfono: " + contacto.getTelefono());
+        }
+
+        System.out.print("¿Desea editar o eliminar algún contacto? (presiona E para editar, presiona D para eliminar, presiona cualquier otra tecla para salir): ");
+        String respuesta = scan.nextLine();
+
+        if (respuesta.equalsIgnoreCase("E")) {
+            editarContacto(session, contactos);
+        } else if (respuesta.equalsIgnoreCase("D")) {
+            eliminarContacto(session, contactos);
+        }
+    }
+
+    public static void editarContacto(Session session, List<User> contactos) {
+        System.out.print("Ingrese el número del contacto que desea editar: ");
+        int index = scan.nextInt();
+        scan.nextLine(); // Consume newline character
+
+        if (index >= 1 && index <= contactos.size()) {
+            User contacto = contactos.get(index - 1);
+
+            System.out.println("Editar contacto: " + contacto.getNombre() + " " + contacto.getApellido());
+            System.out.print("Ingrese el nuevo nombre: ");
+            String nuevoNombre = scan.nextLine();
+            contacto.setNombre(nuevoNombre);
+
+            System.out.print("Ingrese el nuevo apellido: ");
+            String nuevoApellido = scan.nextLine();
+            contacto.setApellido(nuevoApellido);
+
+            System.out.print("Ingrese el nuevo número de teléfono: ");
+            String nuevoTelefono = scan.nextLine();
+            contacto.setTelefono(nuevoTelefono);
+
+            session.beginTransaction();
+            session.update(contacto);
+            session.getTransaction().commit();
+
+            System.out.println("Contacto actualizado exitosamente.");
+        } else {
+            System.out.println("Número de contacto inválido.");
+        }
+    }
+
+    public static void eliminarContacto(Session session, List<User> contactos) {
+        System.out.print("Ingrese el número del contacto que desea eliminar: ");
+        int index = scan.nextInt();
+        scan.nextLine(); // Consume newline character
+
+        if (index >= 1 && index <= contactos.size()) {
+            User contacto = contactos.get(index - 1);
+
+            session.beginTransaction();
+            session.delete(contacto);
+            session.getTransaction().commit();
+
+            System.out.println("Contacto eliminado exitosamente.");
+        } else {
+            System.out.println("Número de contacto inválido.");
+        }
+    }
+
 }

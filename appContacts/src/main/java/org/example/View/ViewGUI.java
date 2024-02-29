@@ -10,4 +10,5 @@ public class ViewGUI {
     private JButton afegirBt;
     private JButton llistaBt;
     private JList llista;
+
 }

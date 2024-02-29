@@ -189,7 +189,7 @@ public class View {
                 int finalJ = j;
                 panelCelda.addMouseListener(new java.awt.event.MouseAdapter() {
                     public void mouseClicked(java.awt.event.MouseEvent evt) {
-                        toggleEstadoCelda(finalI, finalJ, panelCelda);
+                        //toggleEstadoCelda(finalI, finalJ, panelCelda);
                     }
                 });
             }
