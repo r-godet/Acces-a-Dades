@@ -45,25 +45,29 @@ public class Controller {
                 session.getTransaction().commit();
 
                 if(owner != null && owner.getPassword().equals(contrasenya)) {
-                    System.out.println("Autenticación exitosa.");
-                    System.out.println("1. Agregar Contacto");
-                    System.out.println("2. Ver lista de contactos");
-                    System.out.println("3. Cerrar sesion");
-                    int options = scan.nextInt();
-                    scan.nextLine();
+                    boolean inSesion = true;
+                    while(inSesion){
+                        System.out.println("Autenticación exitosa.");
+                        System.out.println("1. Agregar Contacto");
+                        System.out.println("2. Ver lista de contactos");
+                        System.out.println("3. Cerrar Contactos");
+                        int options = scan.nextInt();
+                        scan.nextLine();
 
-                    switch (options) {
-                        case 1:
-                            agregarContacto(session, owner);
-                            break;
-                        case 2:
-                            verContacto(session, owner);
-                            break;
-                        case 3:
-                            System.out.println("Cerrar programa");
-                            return;
-                        default:
-                            System.out.println("Opción inválida. Vuleve a intertarlo.");
+                        switch (options) {
+                            case 1:
+                                agregarContacto(session, owner);
+                                break;
+                            case 2:
+                                verContacto(session, owner);
+                                break;
+                            case 3:
+                                System.out.println("Cerrar Contactos");
+                                inSesion = false;
+                                return;
+                            default:
+                                System.out.println("Opción inválida. Vuleve a intertarlo.");
+                        }
                     }
                 } else {
                     System.out.println("Nombre de usuario o contraseña incorrecta.");
@@ -75,27 +79,18 @@ public class Controller {
         }
     }
     public static void verContacto(Session session, Owner currentOwner) {
-        // Asume que Owner tiene un campo 'id' que se usa para filtrar los contactos
         int ownerId = currentOwner.getId();
-
-        // Inicia una transacción para la operación de lectura (opcional dependiendo de tu configuración)
         session.beginTransaction();
-
-        // Crea una consulta para obtener todos los contactos asociados con el Owner actual
         List<User> contactos = session.createQuery("FROM User WHERE owner.id = :ownerId", User.class)
                 .setParameter("ownerId", ownerId)
                 .getResultList();
-
-        // Finaliza la transacción si es necesario (opcional)
         session.getTransaction().commit();
 
-        // Verifica si hay contactos para mostrar
         if (contactos.isEmpty()) {
             System.out.println("No hay contactos para mostrar.");
             return;
         }
 
-        // Muestra los contactos
         System.out.println("Contactos:");
         for (User contacto : contactos) {
             System.out.println("- " + contacto.getNombre() + " " + contacto.getApellido() + " | Teléfono: " + contacto.getTelefono());
@@ -113,20 +108,16 @@ public class Controller {
             System.out.print("Ingrese el número de teléfono: ");
             String telefono = scan.nextLine();
 
-            // Inicia una transacción con la base de datos
             session.beginTransaction();
 
-            // Crea un nuevo objeto User (contacto) con los datos ingresados
             User nuevoContacto = new User();
             nuevoContacto.setNombre(nombre);
             nuevoContacto.setApellido(apellido);
             nuevoContacto.setTelefono(telefono);
-            nuevoContacto.setOwner(currentOwner); // Asocia el contacto con el Owner actual
+            nuevoContacto.setOwner(currentOwner);
 
-            // Guarda el nuevo contacto en la base de datos
             session.save(nuevoContacto);
 
-            // Compromete la transacción
             session.getTransaction().commit();
 
             System.out.println("Contacto agregado exitosamente.");
