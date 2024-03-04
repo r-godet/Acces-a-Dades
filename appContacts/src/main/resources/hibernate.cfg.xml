@@ -4,9 +4,9 @@
         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
-        <property name ="connection.url">url</property >
-        <property name ="connection.username">usuario</property >
-        <property name ="connection.password">contra</property>
+        <property name ="connection.url">jdbc:mysql://127.0.0.1:3306/contactes</property >
+        <property name ="connection.username">root</property >
+        <property name ="connection.password">123456</property>
         <property name ="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property >
         <property name ="hibernate.hbm2ddl.auto">update</property >
         <property name ="hibernate.show_sql">true</property >
